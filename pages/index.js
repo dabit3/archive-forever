@@ -1,8 +1,27 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
+import axios from 'axios'
+import { useState } from 'react'
 
 export default function Home() {
+  const [url, setUrl] = useState('')
+  async function onClick() {
+    let data = await fetch('/api/fetch-html')
+    data = await data.json()
+    console.log({ data })
+  }
+  async function post() {
+    if (!url || (!url.startsWith('http') && !url.startsWith('https'))){
+      console.log('must be a valid url')
+      console.log('url ', url)
+      return
+    }
+    const response = await axios.post('/api/fetch-html', {
+      url: 'hello',
+    })
+    console.log({ response })
+  }
   return (
     <div className={styles.container}>
       <Head>
@@ -20,38 +39,12 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
-
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
-
-          <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
-            className={styles.card}
-          >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={styles.card}
-          >
-            <h2>Deploy &rarr;</h2>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
+        <input
+          onChange={e => setUrl(e.target.value)}
+          placeholder="Archive a web page"
+        />
+        <button onClick={post}>Post</button>
+      
       </main>
 
       <footer className={styles.footer}>

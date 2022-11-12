@@ -83,11 +83,9 @@ export default function Home() {
         </div>
       </div>
       <footer className={footerStyle}>
-        <div>
-          <p className={footerText}>Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>
-          &nbsp; and &nbsp;
-          <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a></p>
-        </div>
+        <p className={footerText}>Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>
+        &nbsp; and &nbsp;
+        <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a></p>
       </footer>
     </div>
   )
@@ -161,10 +159,12 @@ const footerStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 55px;
 `
 
 const footerText = css`
   font-size: 14px;
+  margin: 0;
   a {
     color: #799cff;
   }

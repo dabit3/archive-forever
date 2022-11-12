@@ -32,7 +32,6 @@ export default async function handler(req, res) {
   let finalText = arr.join(" ")
   finalText = finalText.replace(/(^[ \t]*\n)/gm, "")
   finalText = finalText.replace(/(^"|"$)/g, '')
-
   const tags = [{name: "Content-Type", value: "text/html"}]
 
   const transaction = bundlr.createTransaction(finalText, { tags })
@@ -40,10 +39,8 @@ export default async function handler(req, res) {
   await transaction.sign()
   let id = transaction.id
   await transaction.upload()
-
   const arweaveURI = `https://arweave.net/${id}`
-
-  fs.writeFileSync('./page.html', finalText) 
+  // fs.writeFileSync('./page.html', finalText) 
 
   res.status(200).json({
     link: arweaveURI,

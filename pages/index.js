@@ -6,6 +6,7 @@ import { useState } from 'react'
 
 export default function Home() {
   const [url, setUrl] = useState('')
+  const [link, setLink] = useState('')
   async function onClick() {
     let data = await fetch('/api/fetch-html')
     data = await data.json()
@@ -18,9 +19,10 @@ export default function Home() {
       return
     }
     const response = await axios.post('/api/fetch-html', {
-      url: 'hello',
+      url
     })
     console.log({ response })
+    setLink(response.data.link)
   }
   return (
     <div className={styles.container}>
@@ -44,7 +46,11 @@ export default function Home() {
           placeholder="Archive a web page"
         />
         <button onClick={post}>Post</button>
-      
+        {
+          link && (
+            <a href={link}>Link</a>
+          )
+        }
       </main>
 
       <footer className={styles.footer}>

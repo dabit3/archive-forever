@@ -34,7 +34,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org" target="_blank" rel="noopener noreferrer">Next.js!</a>
+          Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
 
         <p className={styles.description}>
@@ -48,7 +48,7 @@ export default function Home() {
         <button onClick={post}>Post</button>
         {
           link && (
-            <a href={link}>Link</a>
+            <a href={link} target="_blank" rel="noopener noreferrer">Link</a>
           )
         }
       </main>

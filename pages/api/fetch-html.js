@@ -42,7 +42,11 @@ export default async function handler(req, res) {
   await transaction.upload()
 
   const arweaveURI = `https://arweave.net/${id}`
-  console.log({ arweaveURI })
 
-  res.status(200).json({ link: arweaveURI })
+  fs.writeFileSync('./page.html', finalText) 
+
+  res.status(200).json({
+    link: arweaveURI,
+    id
+  })
 }

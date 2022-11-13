@@ -9,10 +9,10 @@ export default function HowItWorks() {
         <title>Archive Forever</title>
         <meta name="description" content="How Archive Forever works" />
         <link rel="icon" href="/favicon.ico" />
-        <meta property="og:image" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
-        <meta content="Archive Forever" property="og:title"></meta>
-        <meta content="https://www.archiveforever.xyz/how-it-works" property="og:url"></meta>
-        <meta content="How Archive Forever works." property="og:description"></meta>
+        <meta name="og:image" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
+        <meta content="Archive Forever" name="og:title"></meta>
+        <meta content="https://www.archiveforever.xyz/how-it-works" name="og:url"></meta>
+        <meta content="How Archive Forever works." name="og:description"></meta>
       </Head>
       <div className={wrapperStyle}>
         <div className={mainContainerStyle}>

@@ -38,14 +38,14 @@ export default function Home() {
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Archive Forever" />
         <meta property="og:description" content="Archive any webpage forever on the blockchain with Arweave." />
-        <meta property="og:image" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
+        <meta property="og:image" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="archiveforever.xyz" />
         <meta property="twitter:url" content="https://www.archiveforever.xyz/" />
         <meta name="twitter:title" content="Archive Forever" />
         <meta name="twitter:description" content="Archive any webpage forever on the blockchain with Arweave." />
-        <meta name="twitter:image" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
+        <meta name="twitter:image" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
       </Head>
       <div className={wrapperStyle}>
         <div className={mainContainerStyle}>

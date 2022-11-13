@@ -6,8 +6,10 @@ import { css, keyframes } from '@emotion/css'
 export default function Home() {
   const [url, setUrl] = useState('')
   const [link, setLink] = useState('')
+  const [screenshot, setScreenshot] = useState('')
   const [hash, setHash] = useState('')
   const [loading, setLoading] = useState(false)
+  const [screenshotEnabled, setScreenshotEnabled] = useState(false)
   async function post() {
     if (!url || (!url.startsWith('http') && !url.startsWith('https'))){
       console.log('must be a valid url')
@@ -17,14 +19,24 @@ export default function Home() {
     setLoading(true)
     setLink('')
     setHash('')
+    setScreenshot('')
+   try {
     const response = await axios.post('/api/fetch-html', {
-      url
+      url,
+      screenshotEnabled
     })
+    console.log({ response })
     console.log({ response })
     setHash(response.data.id)
     setLink(response.data.link)
+    setScreenshot(response.data.screenshotUri)
     setUrl('')
     setLoading(false)
+   } catch(err) {
+    console.log('Error archiving page...', err)
+    setLoading(false)
+    setUrl('')
+   }
   }
 
   return (
@@ -58,6 +70,7 @@ export default function Home() {
               setUrl(e.target.value)
               setLink('')
               setHash('')
+              setScreenshot('')
             }}
             placeholder="Archive a web page"
             className={inputStyle}
@@ -65,12 +78,28 @@ export default function Home() {
           />
           {
             !link && (
-              <button onClick={post} className={archiveButtonStyle}>
-                ARCHIVE
-                {
-                  loading && (<img className={loaderStyle} src='/spinner.svg' alt='loading...' />)
-                }
-              </button>
+              <div className={archiveConfigStyle}>
+                <button onClick={post} className={archiveButtonStyle}>
+                  ARCHIVE
+                  {
+                    loading && (<img className={loaderStyle} src='/spinner.svg' alt='loading...' />)
+                  }
+                </button>
+                <div className={screenshotDetailsStyle}>
+                  <div className={checkboxContainerStyle}
+                    onClick={() => {
+                      setScreenshotEnabled(!screenshotEnabled)
+                    }}
+                  >
+                     {
+                      screenshotEnabled && (
+                        <img className={checkboxStyle} src='/checkmark.svg' alt='Include screenshot?' />
+                      )
+                     }
+                  </div>
+                  <p>Include screenshot?</p>
+                </div>
+              </div>
             )
           }
           {
@@ -85,22 +114,28 @@ export default function Home() {
                   View Archived Page
                   </p>
                 </a>
-                <button
-                  onClick={() => {
-                    setHash('')
-                    setLink('')
-                  }}
-                  className={viewLinkButton}
-                  target="_blank"
-                >
-                  Archive new page
-                </button>
+                {
+                  screenshot && (
+                    <a
+                      href={screenshot}
+                      rel="noopener"
+                      target="_blank"
+                    >
+                      <p className={viewLinkButton}>
+                      View Screenshot of Page
+                      </p>
+                    </a>
+                  )
+                }
               </div>
             )
           }
           {
             hash && (
-              <p className={transactionHashStyle}>Arweave transaction hash: <span className={hashStyle}>{hash}</span></p>
+              <div className={transactionInfoContainer}>
+                <p className={transactionHashStyle}>Arweave transaction hash: <span className={hashStyle}>{hash}</span></p>
+                <p>Want to support this project? Send Matic, ETH, or stablecoins to <a href="https://polygonscan.com/address/0xf59B3Cd80021b77c43EA011356567095C4E45b0e" target="_blank" rel="noopener" className={hashStyle}>this address.</a></p>
+              </div>
             )
           }
         </div>
@@ -109,6 +144,44 @@ export default function Home() {
     </div>
   )
 }
+
+const archiveConfigStyle = css`
+  display: flex;
+  margin-top: 20px;
+  @media (max-width: 740px) {
+    flex-direction: column;
+  }
+`
+
+const screenshotDetailsStyle = css`
+  display: flex;
+  align-items: center;
+  margin-left: 15px;
+  p {
+    margin: 0px 0px 0px 10px;
+  }
+  @media (max-width: 740px) {
+    margin-top: 15px;
+    margin-left: 0px;
+  }
+`
+
+const checkboxContainerStyle = css`
+  background-color: rgba(255, 255, 255, 1);
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+`
+
+const checkboxStyle = css`
+  width: 20px;
+  height: 20px;
+`
 
 const spin = keyframes`
   from {
@@ -166,6 +239,7 @@ const buttonStyle = css`
   transition: background-color .35s;
   display: flex;
   align-items: center;
+  justify-content: center;
   margin: 0;
   color: white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .15);
@@ -179,7 +253,6 @@ const buttonStyle = css`
 
 const archiveButtonStyle = css`
   ${buttonStyle};
-  margin-top: 20px;
   @media (max-width: 720px) {
     margin-top: 20px;
   }
@@ -212,6 +285,7 @@ const mainContainerStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 20px;
   @media (max-width: 720px) {
     padding: 0px 20px;
   }
@@ -222,6 +296,10 @@ const transactionHashStyle = css`
   @media (max-width: 380px) {
     font-size: 14px;
   }
+`
+
+const transactionInfoContainer = css`
+  margin-top: 20px;
 `
 
 const hashStyle = css`

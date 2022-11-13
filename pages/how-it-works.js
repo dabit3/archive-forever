@@ -34,6 +34,14 @@ export default function HowItWorks() {
             The permaweb looks just like the normal web, but all of its content – from images to full web apps – is permanent, retrieved quickly, and decentralized – forever. Just as the first web connected people over vast distances, the permaweb connects people over extremely long periods of time.
             </p>
 
+            <p>
+            The cost to upload data to the Arweave network covers the first 200 years of storage. If data storage declines are anything greater than 0.5% per year, this simply adds to the number of years that the data will be stored. The result is extremely cheap data storage costs over time.
+            </p>
+
+            <p>
+              Data stored on the Arweave network should last at least 200 years (or as long as the network exists).
+            </p>
+
             <p>To learn more about Arweave, check out <a target="_blank" rel="noopener" href="https://www.arweave.org/">their website.</a></p>
           </div>
         </div>

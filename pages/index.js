@@ -128,7 +128,7 @@ const buttonStyle = css`
   outline: none;
   cursor: pointer;
   border-radius: 2px;
-  transition: all .35s;
+  transition: background-color .35s;
   display: flex;
   align-items: center;
   margin: 0;

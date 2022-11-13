@@ -1,9 +1,16 @@
 import { css } from '@emotion/css'
 import Link from 'next/link'
+import Head from 'next/head'
 
 export default function HowItWorks() {
   return (
     <div>
+      <Head>
+        <title>Archive Forever</title>
+        <meta name="description" content="How Archive Forever works" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta property="og:image" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
+      </Head>
       <div className={wrapperStyle}>
         <div className={mainContainerStyle}>
           <nav className={navStyle}>

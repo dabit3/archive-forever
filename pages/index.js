@@ -47,7 +47,7 @@ export default function Home() {
           />
           {
             !link && (
-              <button onClick={post} className={buttonStyle}>Archive</button>
+              <button onClick={post} className={archiveButtonStyle}>ARCHIVE</button>
             )
           }
           {
@@ -77,7 +77,7 @@ export default function Home() {
           }
           {
             hash && (
-              <p>Arweave transactoin hash: <span className={hashStyle}>{hash}</span></p>
+              <p className={transactionHashStyle}>Arweave transaction hash: <span className={hashStyle}>{hash}</span></p>
             )
           }
         </div>
@@ -103,9 +103,7 @@ const titleStyle = css`
   @media (max-width: 520px) {
     font-size: 40px;
   }
-  @media (max-width: 420px) {
-    font-size: 30px;
-  }
+
 `
 
 const inputStyle = css`
@@ -125,7 +123,7 @@ const buttonStyle = css`
   height: 36px;
   font-size: 16px;
   padding: 0px 35px;
-  background-color: #838383;
+  background-color: #4975f0;
   border: none;
   outline: none;
   cursor: pointer;
@@ -134,11 +132,20 @@ const buttonStyle = css`
   display: flex;
   align-items: center;
   margin: 0;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, .15);
   &:hover {
-    background-color: #707070;
+    background-color: #799cff;
   }
   @media (max-width: 720px) {
     margin-top: 0px;
+  }
+`
+
+const archiveButtonStyle = css`
+  ${buttonStyle};
+  margin-top: 20px;
+  @media (max-width: 720px) {
+    margin-top: 20px;
   }
 `
 
@@ -147,17 +154,21 @@ const viewLinkButton = css`
   margin-left: 12px;
   background-color: white;
   color: black;
+  &:hover {
+    background-color: rgba(255, 255, 255, .80);
+  }
   @media (max-width: 720px) {
     margin-left: 0px;
-    margin-top: 20px;
+    margin-top: 10px;
   }
 `
 
 const linkContainerStyle = css`
   display: flex;
-  margin-top: 20px;
+  margin-top: 18px;
   @media (max-width: 720px) {
     flex-direction: column;
+    margin-top: 14px;
   }
 `
 
@@ -170,9 +181,15 @@ const mainContainerStyle = css`
   }
 `
 
+const transactionHashStyle = css`
+  max-width: 100%;
+  @media (max-width: 380px) {
+    font-size: 14px;
+  }
+`
+
 const hashStyle = css`
-  color: #799cff;
-  font-size: 14px;
+  color: #4975f0;
 `
 
 const wrapperStyle = css`
@@ -193,7 +210,7 @@ const footerText = css`
   font-size: 14px;
   margin: 0;
   a {
-    color: #799cff;
+    color: #4975f0;
   }
 `
 

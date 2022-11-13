@@ -39,6 +39,8 @@ export default function HowItWorks() {
             As a collectively owned hard drive that never forgets, Arweave allows us to remember and preserve valuable information, apps, and history indefinitely. By preserving history, it prevents others from rewriting it.
             </p>
 
+            <p>Meta <a rel="noopener" target="_blank" href="https://twitter.com/ArweaveTeam/status/1587937673955926016">recently announced</a> that they would be using Arweave to permanently store digital collectables from Instagram users. Meta chose Arweave because it is the only way store data in a permanent and immutable way.</p>
+
             <p>
             On top of the Arweave network lives the permaweb: a global, community-owned web that anyone can contribute to or get paid to maintain.
             </p>

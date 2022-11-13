@@ -40,7 +40,11 @@ export default function Home() {
           </h1>
           <p className={descriptionStyle}>Archive any webpage, forever.</p>
           <input
-            onChange={e => setUrl(e.target.value)}
+            onChange={e => {
+              setUrl(e.target.value)
+              setLink('')
+              setHash('')
+            }}
             placeholder="Archive a web page"
             className={inputStyle}
             value={url}
@@ -82,11 +86,7 @@ export default function Home() {
           }
         </div>
       </div>
-      <footer className={footerStyle}>
-        <p className={footerText}>Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>
-        &nbsp; and &nbsp;
-        <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a></p>
-      </footer>
+
     </div>
   )
 }
@@ -103,7 +103,6 @@ const titleStyle = css`
   @media (max-width: 520px) {
     font-size: 40px;
   }
-
 `
 
 const inputStyle = css`
@@ -196,24 +195,6 @@ const hashStyle = css`
 
 const wrapperStyle = css`
   margin-top: 100px;
-  min-height: calc(100vh - 160px);
-`
-
-const footerStyle = css`
-  border-top: 1px solid rgba(255, 255, 255, .2);
-  padding: 0px 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 55px;
-`
-
-const footerText = css`
-  font-size: 14px;
-  margin: 0;
-  a {
-    color: #4975f0;
-  }
 `
 
 const descriptionStyle = css`

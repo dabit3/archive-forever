@@ -133,6 +133,7 @@ const buttonStyle = css`
   display: flex;
   align-items: center;
   margin: 0;
+  color: white;
   text-shadow: 1px 1px 1px rgba(0, 0, 0, .15);
   &:hover {
     background-color: #799cff;

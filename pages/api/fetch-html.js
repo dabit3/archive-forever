@@ -1,4 +1,3 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import fs from 'fs'
 const PK = process.env.BNDLR_KEY
 import Bundlr from "@bundlr-network/client"
@@ -40,7 +39,7 @@ export default async function handler(req, res) {
   let id = transaction.id
   await transaction.upload()
   const arweaveURI = `https://arweave.net/${id}`
-  // fs.writeFileSync('./page.html', finalText) 
+  // fs.writeFileSync('./page.html', finalText)
 
   res.status(200).json({
     link: arweaveURI,

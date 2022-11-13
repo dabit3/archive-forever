@@ -23,6 +23,7 @@ export default function Home() {
     console.log({ response })
     setHash(response.data.id)
     setLink(response.data.link)
+    setUrl('')
   }
 
   return (
@@ -63,7 +64,6 @@ export default function Home() {
                 </a>
                 <button
                   onClick={() => {
-                    setUrl('')
                     setHash('')
                     setLink('')
                   }}
@@ -96,6 +96,16 @@ const titleStyle = css`
   font-size: 64px;
   font-weight: 800;
   letter-spacing: 5px;
+  text-align: center;
+  @media (max-width: 720px) {
+    font-size: 50px;
+  }
+  @media (max-width: 520px) {
+    font-size: 40px;
+  }
+  @media (max-width: 420px) {
+    font-size: 30px;
+  }
 `
 
 const inputStyle = css`
@@ -106,11 +116,13 @@ const inputStyle = css`
   padding: 8px 20px;
   height: 42px;
   font-size: 16px;
+  @media (max-width: 720px) {
+    width: 100%;
+  }
 `
 
 const buttonStyle = css`
   height: 36px;
-  margin-top: 20px;
   font-size: 16px;
   padding: 0px 35px;
   background-color: #838383;
@@ -121,8 +133,12 @@ const buttonStyle = css`
   transition: all .35s;
   display: flex;
   align-items: center;
+  margin: 0;
   &:hover {
     background-color: #707070;
+  }
+  @media (max-width: 720px) {
+    margin-top: 0px;
   }
 `
 
@@ -131,16 +147,27 @@ const viewLinkButton = css`
   margin-left: 12px;
   background-color: white;
   color: black;
+  @media (max-width: 720px) {
+    margin-left: 0px;
+    margin-top: 20px;
+  }
 `
 
 const linkContainerStyle = css`
   display: flex;
+  margin-top: 20px;
+  @media (max-width: 720px) {
+    flex-direction: column;
+  }
 `
 
 const mainContainerStyle = css`
   display: flex;
   flex-direction: column;
   align-items: center;
+  @media (max-width: 720px) {
+    padding: 0px 20px;
+  }
 `
 
 const hashStyle = css`
@@ -150,7 +177,7 @@ const hashStyle = css`
 
 const wrapperStyle = css`
   margin-top: 100px;
-  height: calc(100vh - 160px);
+  min-height: calc(100vh - 160px);
 `
 
 const footerStyle = css`

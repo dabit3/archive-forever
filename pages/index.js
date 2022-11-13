@@ -114,6 +114,7 @@ const inputStyle = css`
   padding: 8px 20px;
   height: 42px;
   font-size: 16px;
+  background-color: #343434;
   @media (max-width: 720px) {
     width: 100%;
   }

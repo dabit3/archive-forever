@@ -19,11 +19,18 @@ function MyApp({ Component, pageProps }) {
       <footer className={footerStyle}>
         <p className={footerText}><Link href="/how-it-works">How it works.</Link> Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>
         &nbsp; and &nbsp;
-        <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a>.</p>
+        <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a>. <a href="https://github.com/dabit3/archive-forever" rel="noopener" target="_blank"><img className={githubLinkStyle} src='/github.svg' alt='loading...' /></a></p>
       </footer>
     </div>
   )
 }
+
+const githubLinkStyle = css`
+  width: 32px;
+  height: 32px;
+  margin-bottom: -12px;
+  margin-left: -2px;
+`
 
 const containerStyle = css`
   min-height: 100vh;

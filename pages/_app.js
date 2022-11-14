@@ -17,7 +17,7 @@ function MyApp({ Component, pageProps }) {
         </Script>
       <Component {...pageProps} />
       <footer className={footerStyle}>
-        <p className={footerText}><Link href="/how-it-works">How it works.</Link> Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>
+        <p className={footerText}><Link href="/how-it-works">How it works. </Link> Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>
         &nbsp; and &nbsp;
         <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a>. <a href="https://github.com/dabit3/archive-forever" rel="noopener" target="_blank"><img className={githubLinkStyle} src='/github.svg' alt='loading...' /></a></p>
       </footer>
@@ -44,15 +44,15 @@ const footerStyle = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
+  height: 60px;
   margin-top: auto;
-  @media (max-width: 380px) {
+  @media (max-width: 450px) {
     height: 80px;
   }
 `
 
 const footerText = css`
-  font-size: 14px;
+  font6px;
   margin: 0;
   a {
     color: #4975f0;

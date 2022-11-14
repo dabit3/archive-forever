@@ -22,6 +22,7 @@ export default function HowItWorks() {
         <meta name="twitter:title" content="Archive Forever" />
         <meta name="twitter:description" content="How Archive Forever works." />
         <meta name="twitter:image" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
+        <meta name="twitter:image:src" content="https://i.ibb.co/wK2j5Kq/igimage.jpg" />
         
       </Head>
       <div className={wrapperStyle}>

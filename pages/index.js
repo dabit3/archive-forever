@@ -58,6 +58,7 @@ export default function Home() {
         <meta name="twitter:title" content="Archive Forever" />
         <meta name="twitter:description" content="Archive any webpage forever on the blockchain with Arweave." />
         <meta name="twitter:image" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
+        <meta name="twitter:image:src" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
       </Head>
       <div className={wrapperStyle}>
         <div className={mainContainerStyle}>

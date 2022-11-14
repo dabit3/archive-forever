@@ -25,8 +25,6 @@ export default function Home() {
       url,
       screenshotEnabled
     })
-    console.log({ response })
-    console.log({ response })
     setHash(response.data.id)
     setLink(response.data.link)
     setScreenshot(response.data.screenshotUri)

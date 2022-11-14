@@ -72,6 +72,7 @@ export default function Home() {
               setLink('')
               setHash('')
               setScreenshot('')
+              setScreenshotEnabled(false)
             }}
             placeholder="Archive a web page"
             className={inputStyle}

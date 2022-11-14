@@ -151,6 +151,9 @@ const archiveConfigStyle = css`
   @media (max-width: 740px) {
     flex-direction: column;
   }
+  @media (max-width: 720px) {
+    margin-top: 0px;
+  }
 `
 
 const screenshotDetailsStyle = css`

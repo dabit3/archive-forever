@@ -1,7 +1,6 @@
 import fs from 'fs'
 import Bundlr from '@bundlr-network/client'
 import chromium from 'chrome-aws-lambda'
-import puppeteer from 'puppeteer-core'
 import playwright from "playwright-core";
 
 const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'

@@ -21,27 +21,34 @@ export default async function handler(req, res) {
       browser = await puppeteer.launch()
     }
 
-    const page = await browser.newPage()
-    await page.goto(body.url, { waitUntil: 'networkidle0', timeout: 0 })
+    try {
+      const page = await browser.newPage()
+      await page.goto(body.url, { waitUntil: 'networkidle0', timeout: 0 })
 
-    const example = await page.$('html')
-    const bounding_box = await example.boundingBox()
+      const example = await page.$('html')
+      const bounding_box = await example.boundingBox()
+      let height = bounding_box.height > 5000 ? 5000 : Math.round(bounding_box.height)
 
-    await page.setViewport({
-      width: Math.round(bounding_box.width),
-      height: Math.round(bounding_box.height)
-    })
-    const screenshot = await page.screenshot()
-    await browser.close()
-    /* end puppeteer */
+      await page.setViewport({
+        width: Math.round(bounding_box.width),
+        height
+      })
+      const screenshot = await page.screenshot()
+      await browser.close()
+      /* end puppeteer */
 
-    const imageTags = [{name: 'Content-Type', value: 'image/png' }]
-    const imageTransaction = bundlr.createTransaction(screenshot, { tags: imageTags })
+      const imageTags = [{name: 'Content-Type', value: 'image/png' }]
+      const imageTransaction = bundlr.createTransaction(screenshot, { tags: imageTags })
 
-    await imageTransaction.sign()
-    let imageId = imageTransaction.id
-    await imageTransaction.upload()
-    screenshotUri = `https://arweave.net/${imageId}`
+      await imageTransaction.sign()
+      let imageId = imageTransaction.id
+      await imageTransaction.upload()
+      screenshotUri = `https://arweave.net/${imageId}`
+    } catch (err) {
+      res.status(200).json({
+        error: err
+      })
+    }
   }
 
   const baseUrl = body.url.split('/')[2]

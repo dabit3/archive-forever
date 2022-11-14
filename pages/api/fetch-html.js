@@ -27,7 +27,7 @@ export default async function handler(req, res) {
 
       const example = await page.$('html')
       const bounding_box = await example.boundingBox()
-      let height = bounding_box.height > 5000 ? 5000 : Math.round(bounding_box.height)
+      let height = bounding_box.height > 4000 ? 4000 : Math.round(bounding_box.height)
 
       await page.setViewport({
         width: Math.round(bounding_box.width),

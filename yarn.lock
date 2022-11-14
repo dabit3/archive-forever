@@ -728,6 +728,11 @@
   resolved "https://registry.yarnpkg.com/@types/yoga-layout/-/yoga-layout-1.9.2.tgz#efaf9e991a7390dc081a0b679185979a83a9639a"
   integrity sha512-S9q47ByT2pPvD65IvrWp7qppVMpk9WGMbVq9wbWZOHg6tnXSD4vyhao6nOSBwwfDdV2p3Kx9evA9vI+XWTfDvw==
 
+"@vercel/analytics@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-0.1.4.tgz#86481995ec5520b349befddaf5b8b22203023871"
+  integrity sha512-6xI1kozfgigwmDTQCrtj+m0yQnzhLGa/l0yE8BjTbUQ2vF9b88CEXF3dXjZl48ESfjssCur3FkK3jOwZm4emrw==
+
 "@vercel/og@^0.0.20":
   version "0.0.20"
   resolved "https://registry.yarnpkg.com/@vercel/og/-/og-0.0.20.tgz#fe586d153e492edd87fe2bc2671ba223072bd47a"

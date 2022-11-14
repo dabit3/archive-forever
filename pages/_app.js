@@ -2,6 +2,7 @@ import '../styles/globals.css'
 import { css } from '@emotion/css'
 import Link from 'next/link'
 import Script from 'next/script'
+import { Analytics } from '@vercel/analytics/react'
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -21,6 +22,7 @@ function MyApp({ Component, pageProps }) {
         &nbsp; and &nbsp;
         <a rel="noopener" target="_blank" href="https://bundlr.network/">Bundlr</a>. <a href="https://github.com/dabit3/archive-forever" rel="noopener" target="_blank"><img className={githubLinkStyle} src='/github.svg' alt='loading...' /></a></p>
       </footer>
+      <Analytics />
     </div>
   )
 }

@@ -22,7 +22,7 @@ export default async function handler(req, res) {
     }
 
     const page = await browser.newPage()
-    await page.goto(body.url, {waitUntil: 'networkidle0', timeout: 0})
+    await page.goto(body.url, { waitUntil: 'networkidle0' })
 
     const example = await page.$('html')
     const bounding_box = await example.boundingBox()

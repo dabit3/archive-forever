@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { css } from '@emotion/css'
 import Link from 'next/link'
-import Script from 'next/Script'
+import Script from 'next/script'
 
 function MyApp({ Component, pageProps }) {
   return (

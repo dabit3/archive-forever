@@ -1,6 +1,6 @@
 import Bundlr from '@bundlr-network/client'
 import chromium from 'chrome-aws-lambda'
-import playwright from "playwright-core";
+import playwright from 'playwright-core'
 
 const LOCAL_CHROME_EXECUTABLE = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 
@@ -44,7 +44,24 @@ export default async function handler(req, res) {
     let imageId = imageTransaction.id
     await imageTransaction.upload()
 
-    
+    // const browser = await puppeteer.launch({
+    //   executablePath,
+    //   args: [...edgeChromium.args, '--start-maximized'],
+    //   headless: false,
+    //   defaultViewport: null,
+    // })
+    // const page = await browser.newPage()
+    // await page.goto(body.url)
+    // const screenshot = await page.screenshot({ fullPage: true })
+    // /* end puppeteer */
+    // await browser.close()
+
+    // const imageTags = [{name: 'Content-Type', value: 'image/png' }]
+    // const imageTransaction = bundlr.createTransaction(screenshot, { tags: imageTags })
+
+    // await imageTransaction.sign()
+    // let imageId = imageTransaction.id
+    // await imageTransaction.upload()
     screenshotUri = `https://arweave.net/${imageId}`
   }
 

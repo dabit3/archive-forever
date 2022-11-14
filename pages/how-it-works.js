@@ -59,6 +59,8 @@ export default function HowItWorks() {
             </p>
 
             <p>To learn more about Arweave, check out <a target="_blank" rel="noopener" href="https://www.arweave.org/">their website.</a></p>
+
+            <p>Want to support this project? Send Matic, ETH, or stablecoins to <a href="https://polygonscan.com/address/0xf59B3Cd80021b77c43EA011356567095C4E45b0e" target="_blank" rel="noopener">this address.</a></p>
           </div>
         </div>
       </div>

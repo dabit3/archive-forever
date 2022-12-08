@@ -13,11 +13,6 @@ export default async function handler(req, res) {
   const { body } = req
   let screenshotUri = null
   
-  const baseTag = {
-    name: "App-Name",
-    value: "archive-pages-app-by-nader"
-  }
-
   if (body.screenshotEnabled) {
     const IS_PRODUCTION = process.env.NODE_ENV === 'production'
     let browser
@@ -47,7 +42,7 @@ export default async function handler(req, res) {
       await browser.close()
       /* end puppeteer */
 
-      const imageTags = [{name: 'Content-Type', value: 'image/png' }, baseTag]
+      const imageTags = [{name: 'Content-Type', value: 'image/png' }]
       const imageTransaction = bundlr.createTransaction(screenshot, { tags: imageTags })
 
       await imageTransaction.sign()
@@ -86,7 +81,7 @@ export default async function handler(req, res) {
   let finalText = arr.join(" ")
   finalText = finalText.replace(/(^[ \t]*\n)/gm, "")
   finalText = finalText.replace(/(^"|"$)/g, '')
-  const tags = [{name: "Content-Type", value: "text/html"}, baseTag]
+  const tags = [{name: "Content-Type", value: "text/html"}]
 
   const transaction = bundlr.createTransaction(finalText, { tags })
 

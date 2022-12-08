@@ -1,3 +1,8 @@
+/* this API endpoint was in the past used in a serverless function but
+*  has since been migrated to dedicated hosting to get around the limitations encountered with
+*  full shot screenshotting with puppeteer in a serverless function.
+*  see the server folder
+*/
 import Bundlr from '@bundlr-network/client'
 import puppeteer from 'puppeteer'
 
@@ -8,6 +13,11 @@ export default async function handler(req, res) {
   const { body } = req
   let screenshotUri = null
   
+  const baseTag = {
+    name: "App-Name",
+    value: "archive-pages-app-by-nader"
+  }
+
   if (body.screenshotEnabled) {
     const IS_PRODUCTION = process.env.NODE_ENV === 'production'
     let browser
@@ -37,7 +47,7 @@ export default async function handler(req, res) {
       await browser.close()
       /* end puppeteer */
 
-      const imageTags = [{name: 'Content-Type', value: 'image/png' }]
+      const imageTags = [{name: 'Content-Type', value: 'image/png' }, baseTag]
       const imageTransaction = bundlr.createTransaction(screenshot, { tags: imageTags })
 
       await imageTransaction.sign()
@@ -76,7 +86,7 @@ export default async function handler(req, res) {
   let finalText = arr.join(" ")
   finalText = finalText.replace(/(^[ \t]*\n)/gm, "")
   finalText = finalText.replace(/(^"|"$)/g, '')
-  const tags = [{name: "Content-Type", value: "text/html"}]
+  const tags = [{name: "Content-Type", value: "text/html"}, baseTag]
 
   const transaction = bundlr.createTransaction(finalText, { tags })
 

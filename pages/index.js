@@ -21,14 +21,14 @@ export default function Home() {
     setHash('')
     setScreenshot('')
    try {
-    // const response = await axios.post('https://159.223.199.35:3000/process-request', {
-    //   url,
-    //   screenshotEnabled
-    // })
-    const response = await axios.post('/api/fetch-html', {
+    const response = await axios.post('https://api.buildingweb3.xyz/process-request', {
       url,
       screenshotEnabled
     })
+    // const response = await axios.post('/api/fetch-html', {
+    //   url,
+    //   screenshotEnabled
+    // })
     console.log({
       response
     })

@@ -22,7 +22,7 @@ const main = async function (req, res) {
 
       const _page = await page.$('html')
       const bounding_box = await _page.boundingBox()
-      let height = bounding_box.height > 5000 ? 5000 : Math.round(bounding_box.height)
+      let height = bounding_box.height > 10000 ? 10000 : Math.round(bounding_box.height)
 
       await page.setViewport({
         width: Math.round(bounding_box.width),

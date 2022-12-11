@@ -33,7 +33,7 @@ export default function HowItWorks() {
           <h1 className={titleStyle}>HOW IT WORKS.</h1>
           <div className={textContainerStyle}>
             <p>
-            <a href="https://www.arweave.org/" target="_blank" rel="noopener">Arweave</a> is a new type of storage that backs data with sustainable and perpetual endowments, allowing users and developers to truly store data forever – for the very first time.
+            <a href="https://www.arweave.org/" target="_blank" rel="noopener">Arweave</a> is a new type of storage that backs data with sustainable and perpetual endowments, allowing users and developers to truly store data permanently – for the very first time.
             </p>
 
             <p>

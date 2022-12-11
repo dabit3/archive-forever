@@ -132,9 +132,13 @@ export default function Home() {
               className={inputStyle}
               value={url}
             />
-            <img onClick={
-              () => inputRef.current.click()
-            } className={uploadIconStyle} src='/upload.svg' alt='Upload image?' />
+            {
+              !url && (
+                <img onClick={
+                  () => inputRef.current.click()
+                } className={uploadIconStyle} src='/upload.svg' alt='Upload image?' />
+              )
+            }
             <input
               type='file'
               ref={inputRef}
@@ -256,11 +260,14 @@ export default function Home() {
 }
 
 const imageArchiveContainer = css`
-  padding: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  padding-top: 20px;
+  @media (max-width: 720px) {
+    padding-top: 0px;
+  }
 `
 
 const previewImage = css`

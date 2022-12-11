@@ -1,40 +1,60 @@
 import Head from 'next/head'
 import axios from 'axios'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { css, keyframes } from '@emotion/css'
+
+const API_URI = process.env.NEXT_PUBLIC_NODE_ENV === 'development' ?
+'http://localhost:3000/process-request' :
+'https://api.buildingweb3.xyz/process-request'
 
 export default function Home() {
   const [url, setUrl] = useState('')
   const [link, setLink] = useState('')
-  const [screenshot, setScreenshot] = useState('')
+  const [arweaveImage, setArweaveImage] = useState('')
   const [hash, setHash] = useState('')
   const [loading, setLoading] = useState(false)
   const [screenshotEnabled, setScreenshotEnabled] = useState(false)
+  const [file, setFile] = useState()
+  const [image, setImage] = useState()
+  const inputRef = useRef(null)
   async function post() {
-    if (!url || (!url.startsWith('http') && !url.startsWith('https'))){
-      console.log('must be a valid url')
+    if (!file && (!url || (!url.startsWith('http') && !url.startsWith('https')))){
+      console.log('must upload a file or provide a valid url')
       console.log('url ', url)
       return
     }
     setLoading(true)
     setLink('')
     setHash('')
-    setScreenshot('')
+    setArweaveImage('')
+   if (file) {
+      try {
+        const response = await axios.post(API_URI, {
+          file
+        })
+        console.log({ response })
+        setHash(response.data.id)
+        setArweaveImage(response.data.imageURI)
+        setUrl('')
+        setLoading(false)
+        setImage(null)
+        setFile(null)
+        return
+      } catch (err) {
+        return
+      }
+   }
    try {
-    const response = await axios.post('https://api.buildingweb3.xyz/process-request', {
+    const response = await axios.post(API_URI, {
       url,
       screenshotEnabled
     })
-    // const response = await axios.post('/api/fetch-html', {
-    //   url,
-    //   screenshotEnabled
-    // })
     console.log({
       response
     })
     setHash(response.data.id)
     setLink(response.data.link)
-    setScreenshot(response.data.screenshotUri)
+    setArweaveImage(response.data.imageURI)
     setUrl('')
     setLoading(false)
    } catch(err) {
@@ -44,24 +64,50 @@ export default function Home() {
    }
   }
 
+  function uploadImage(e) {
+    resetState()
+    const file = e.target.files[0]
+    if (file) {
+      const image = URL.createObjectURL(file)
+      setImage(image)
+      let reader = new FileReader()
+      reader.onload = function () {
+        if (reader.result) {
+          setFile(Buffer.from(reader.result))
+        }
+      }
+      reader.readAsArrayBuffer(file)
+    }
+  }
+
+  function resetState() {
+    setUrl('')
+    setLink('')
+    setHash('')
+    setArweaveImage('')
+    setLoading(false)
+    setImage(null)
+    setFile(null)
+  }
+
   return (
     <div>
       <Head>
         <title>Archive Forever</title>
-        <meta name="description" content="Archive any webpage forever on the blockchain with Arweave" />
+        <meta name="description" content="Archive any webpage or image forever on the blockchain with Arweave" />
         <link rel="icon" href="/favicon.ico" />
         
         <meta property="og:url" content="https://www.archiveforever.xyz/" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="Archive Forever" />
-        <meta property="og:description" content="Archive any webpage forever on the blockchain with Arweave." />
+        <meta property="og:description" content="Archive any webpage or image forever on the blockchain with Arweave." />
         <meta property="og:image" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta property="twitter:domain" content="archiveforever.xyz" />
         <meta property="twitter:url" content="https://www.archiveforever.xyz/" />
         <meta name="twitter:title" content="Archive Forever" />
-        <meta name="twitter:description" content="Archive any webpage forever on the blockchain with Arweave." />
+        <meta name="twitter:description" content="Archive any webpage or image forever on the blockchain with Arweave." />
         <meta name="twitter:image" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
         <meta name="twitter:image:src" content="https://raw.githubusercontent.com/dabit3/archive-forever/main/public/igimage.jpg" />
       </Head>
@@ -70,47 +116,62 @@ export default function Home() {
           <h1 className={titleStyle}>
             ARCHIVE FOREVER
           </h1>
-          <p className={descriptionStyle}>Archive any webpage, forever.</p>
-          <input
-            onChange={e => {
-              setUrl(e.target.value)
-              setLink('')
-              setHash('')
-              setScreenshot('')
-              setScreenshotEnabled(false)
-            }}
-            placeholder="Archive a web page"
-            className={inputStyle}
-            value={url}
-          />
+          <p className={descriptionStyle}>Archive any webpage or image, forever.</p>
+          <div className={inputContainer}>
+            <input
+              onChange={e => {
+                setUrl(e.target.value)
+                setLink('')
+                setHash('')
+                setArweaveImage('')
+                setScreenshotEnabled(false)
+                setImage(null)
+                setFile(null)
+              }}
+              placeholder="URL"
+              className={inputStyle}
+              value={url}
+            />
+            <img onClick={
+              () => inputRef.current.click()
+            } className={uploadIconStyle} src='/upload.svg' alt='Upload image?' />
+            <input
+              type='file'
+              ref={inputRef}
+              onChange={uploadImage}
+              style={{ display: 'none' }}
+            />
+          </div>
           {
-            !link && (
-              <div className={archiveConfigStyle}>
-                <button onClick={post} className={archiveButtonStyle}>
-                  ARCHIVE
-                  {
-                    loading && (<img className={loaderStyle} src='/spinner.svg' alt='loading...' />)
-                  }
-                </button>
-                <div className={screenshotDetailsStyle}>
-                  <div className={checkboxContainerStyle}
-                    onClick={() => {
-                      setScreenshotEnabled(!screenshotEnabled)
-                    }}
-                  >
-                     {
-                      screenshotEnabled && (
-                        <img className={checkboxStyle} src='/checkmark.svg' alt='Include screenshot?' />
-                      )
-                     }
+            !hash && !image && (
+              <div>
+                <div className={archiveConfigStyle}>
+                  <button onClick={post} className={archiveButtonStyle}>
+                    ARCHIVE
+                    {
+                      loading && (<img className={loaderStyle} src='/spinner.svg' alt='loading...' />)
+                    }
+                  </button>
+                  <div className={screenshotDetailsStyle}>
+                    <div className={checkboxContainerStyle}
+                      onClick={() => {
+                        setScreenshotEnabled(!screenshotEnabled)
+                      }}
+                    >
+                      {
+                        screenshotEnabled && (
+                          <img className={checkboxStyle} src='/checkmark.svg' alt='Include screenshot?' />
+                        )
+                      }
+                    </div>
+                    <p>Include screenshot?</p>
                   </div>
-                  <p>Include screenshot?</p>
                 </div>
               </div>
             )
           }
           {
-            link && (
+            link && !arweaveImage && (
               <div className={linkContainerStyle}>
                 <a
                   href={link}
@@ -121,19 +182,45 @@ export default function Home() {
                   View Archived Page
                   </p>
                 </a>
-                {
-                  screenshot && (
-                    <a
-                      href={screenshot}
-                      rel="noopener"
-                      target="_blank"
-                    >
-                      <p className={viewLinkButton}>
-                      View Screenshot of Page
-                      </p>
-                    </a>
-                  )
-                }
+              </div>
+            )
+          }
+          {
+            link && arweaveImage && (
+              <div className={linkContainerStyle}>
+                <a
+                  href={link}
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <p className={buttonStyle}>
+                  View Archived Page
+                  </p>
+                </a>
+                <a
+                  href={arweaveImage}
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <p className={viewScreenshotButton}>
+                    View Screenshot of Page
+                  </p>
+                </a>
+              </div>
+            )
+          }
+          {
+            arweaveImage && !link && (
+              <div className={linkContainerStyle}>
+                <a
+                  href={arweaveImage}
+                  rel="noopener"
+                  target="_blank"
+                >
+                  <p className={viewScreenshotButton}>
+                    View Image
+                  </p>
+                </a>
               </div>
             )
           }
@@ -145,12 +232,60 @@ export default function Home() {
               </div>
             )
           }
+          {
+            image && (
+              <div className={imageArchiveContainer}>
+                <button onClick={post} className={archiveButtonStyle}>
+                  ARCHIVE IMAGE
+                  {
+                    loading && (<img className={loaderStyle} src='/spinner.svg' alt='loading...' />)
+                  }
+                </button>
+                <img
+                  src={image}
+                  className={previewImage}
+                />
+              </div>
+            )
+          }
         </div>
       </div>
 
     </div>
   )
 }
+
+const imageArchiveContainer = css`
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
+
+const previewImage = css`
+  margin-top: 20px;
+  width: 500px;
+  @media (max-width: 720px) {
+    width: 100%;
+  }
+`
+
+const inputContainer = css`
+  position: relative;
+`
+
+const uploadIconStyle = css`
+  width: 50px;
+  height: 40px;
+  position: absolute;
+  right: 5px;
+  top: 1px;
+  cursor: pointer;
+  &:hover {
+    opacity: .7;
+  }
+`
 
 const archiveConfigStyle = css`
   display: flex;
@@ -268,7 +403,7 @@ const archiveButtonStyle = css`
   }
 `
 
-const viewLinkButton = css`
+const viewScreenshotButton = css`
   ${buttonStyle};
   margin-left: 12px;
   background-color: white;

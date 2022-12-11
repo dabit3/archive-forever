@@ -5,6 +5,8 @@ const PK = process.env.BNDLR_KEY
 const bundlr = new Bundlr("https://node1.bundlr.network", "matic", PK)
 
 const main = async function (req, res) {
+  console.log('files: ', req.files)
+  return
   const { body } = req
   let screenshotUri = null
 

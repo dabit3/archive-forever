@@ -1,21 +1,11 @@
 import '../styles/globals.css'
 import { css } from '@emotion/css'
 import Link from 'next/link'
-import Script from 'next/script'
 import { Analytics } from '@vercel/analytics/react'
 
 function MyApp({ Component, pageProps }) {
   return (
     <div className={containerStyle}>
-        <Script id="google-analytics" strategy="afterInteractive">
-        {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-          
-            gtag('config', 'G-CPYN5JNGKZ');
-        `}
-        </Script>
       <Component {...pageProps} />
       <footer className={footerStyle}>
         <p className={footerText}><Link href="/how-it-works">How it works. </Link> Built with &nbsp;<a rel="noopener" href="https://www.arweave.org/" target="_blank">Arweave</a>

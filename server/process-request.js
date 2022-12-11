@@ -2,17 +2,38 @@ const Bundlr = require("@bundlr-network/client").default
 const puppeteer = require("puppeteer")
 
 const PK = process.env.BNDLR_KEY
-const bundlr = new Bundlr("https://node1.bundlr.network", "matic", PK)
+const bundlr = new Bundlr('https://node1.bundlr.network', 'matic', PK)
 
 const main = async function (req, res) {
-  console.log('files: ', req.files)
-  return
   const { body } = req
+  console.log({ body })
   let screenshotUri = null
 
   const baseTag = {
-    name: "App-Name",
-    value: "archive-pages-app-by-nader"
+    name: 'App-Name',
+    value: 'archive-pages-app-by-nader'
+  }
+
+  if (body.file) {
+    try {
+      const tags = [{name: 'Content-Type', value: 'image/png' }, baseTag]
+      const imageTransaction = bundlr.createTransaction(body.file, { tags })
+
+      await imageTransaction.sign()
+      let id = imageTransaction.id
+      await imageTransaction.upload()
+      imageURI = `https://arweave.net/${id}`
+
+      return res.json({
+        imageURI,
+        id
+      })
+    } catch (err) {
+      console.log('error uploading file...', err)
+      return res.json({
+        error: 'Error uploading file to arweave...'
+      })
+    }
   }
 
   if (body.screenshotEnabled) {
@@ -89,7 +110,7 @@ const main = async function (req, res) {
 
   return res.json({
     link: arweaveURI,
-    screenshotUri,
+    imageURI: screenshotUri,
     id
   })
 }

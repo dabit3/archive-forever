@@ -117,7 +117,7 @@ export default function Home() {
             ARCHIVE FOREVER
           </h1>
           <p className={descriptionStyle}>Archive any webpage or image, forever.</p>
-          <div className={inputContainer}>
+          <div className={inputContainerStyle}>
             <input
               onChange={e => {
                 setUrl(e.target.value)
@@ -278,11 +278,6 @@ const previewImage = css`
   }
 `
 
-const inputContainer = css`
-  position: relative;
-  width: 100%;
-`
-
 const uploadIconStyle = css`
   width: 50px;
   height: 40px;
@@ -363,6 +358,14 @@ const titleStyle = css`
   }
   @media (max-width: 520px) {
     font-size: 40px;
+  }
+`
+
+const inputContainerStyle = css`
+  position: relative;
+  width: 600px;
+  @media (max-width: 720px) {
+    width: 100%;
   }
 `
 

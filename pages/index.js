@@ -280,6 +280,7 @@ const previewImage = css`
 
 const inputContainer = css`
   position: relative;
+  width: 100%;
 `
 
 const uploadIconStyle = css`
